@@ -27,7 +27,7 @@
 extern "C" {
 #endif /* __cplusplus */
 
-#include <voMem.h>
+#include "voMem.h"
 
 //extern VO_MEM_OPERATOR	g_memOP;
 
