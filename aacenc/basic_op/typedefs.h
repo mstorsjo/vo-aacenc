@@ -23,6 +23,8 @@
 #ifndef typedefs_h
 #define typedefs_h "$Id $"
 
+#include <stdint.h>
+
 #ifndef CHAR_BIT
 #define CHAR_BIT      8         /* number of bits in a char */
 #endif
@@ -66,29 +68,24 @@ typedef char Char;
 /*
  ********* define 8 bit signed/unsigned types & constants
  */
-typedef signed char Word8;
-typedef unsigned char UWord8;
+typedef int8_t Word8;
+typedef uint8_t UWord8;
 /*
  ********* define 16 bit signed/unsigned types & constants
  */
-typedef short Word16;
-typedef unsigned short UWord16;
+typedef int16_t Word16;
+typedef uint16_t UWord16;
 
 /*
  ********* define 32 bit signed/unsigned types & constants
  */
-typedef long Word32;
-typedef unsigned long UWord32;
+typedef int32_t Word32;
+typedef uint32_t UWord32;
 
 
 
-#ifdef LINUX
-typedef long long Word64;
-typedef unsigned long long UWord64;
-#else
-typedef __int64 Word64;
-typedef unsigned __int64 UWord64;
-#endif
+typedef int64_t Word64;
+typedef uint64_t UWord64;
 
 #ifndef min
 #define min(a,b) ( a < b ? a : b)
