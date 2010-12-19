@@ -23,6 +23,7 @@
 
 
 #include	"memalign.h"
+#include	<stdint.h>
 
 /*****************************************************************************
 *
@@ -66,8 +67,8 @@ mem_malloc(VO_MEM_OPERATOR *pMemop, unsigned int size, unsigned char alignment, 
 		pMemop->Set(CodecID, tmp, 0, size + alignment);
 
 		mem_ptr =
-			(unsigned char *) ((unsigned int) (tmp + alignment - 1) &
-					(~((unsigned int) (alignment - 1))));
+			(unsigned char *) ((intptr_t) (tmp + alignment - 1) &
+					(~((intptr_t) (alignment - 1))));
 
 		if (mem_ptr == tmp)
 			mem_ptr += alignment;
