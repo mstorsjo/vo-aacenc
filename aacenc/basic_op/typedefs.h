@@ -167,6 +167,8 @@ typedef uint64_t UWord64;
 #define  pow2_xy		ADD_PREFIX(pow2_xy)
 #define  L_mpy_ls		ADD_PREFIX(L_mpy_ls)
 #define  L_mpy_wx		ADD_PREFIX(L_mpy_wx)
+#define  TnsEncode		ADD_PREFIX(TnsEncode)
+#define  GetSRIndex		ADD_PREFIX(GetSRIndex)
 
 #define mem_malloc		ADD_PREFIX(mem_malloc)
 #define mem_free		ADD_PREFIX(mem_free)
