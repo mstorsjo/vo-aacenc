@@ -49,5 +49,6 @@ AC_CHECK_FUNCS([memset])
 VO_AACENC_VERSION=0:1:0
 AC_SUBST(VO_AACENC_VERSION)
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile
+                 vo-aacenc.pc])
 AC_OUTPUT

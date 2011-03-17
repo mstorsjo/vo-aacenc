@@ -8,6 +8,9 @@ AM_CFLAGS = -Iaacenc/inc -Iaacenc/basic_op -Icommon/include
 aacencincludedir = $(includedir)/vo-aacenc
 aacencinclude_HEADERS = $(VO_COMMON)/include/*.h
 
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = vo-aacenc.pc
+
 lib_LTLIBRARIES = libvo-aacenc.la
 
 libvo_aacenc_la_LDFLAGS = -version-info @VO_AACENC_VERSION@ -no-undefined
