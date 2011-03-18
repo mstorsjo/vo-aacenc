@@ -12,7 +12,22 @@ AM_MAINTAINER_MODE
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
 
+# Various options for configure
+AC_ARG_ENABLE([armv5e],
+            [AS_HELP_STRING([--enable-armv5e],
+               [enable ARMV5E assembler (default is no)])],
+            [armv5e=$enableval], [armv5e=no])
+AC_ARG_ENABLE([armv7neon],
+            [AS_HELP_STRING([--enable-armv7neon],
+               [enable ARMV7 neon assembler (default is no)])],
+            [armv7neon=$enableval], [armv7neon=no])
+
+# Automake conditionals to set
+AM_CONDITIONAL(ARMV5E, test x$armv5e = xyes)
+AM_CONDITIONAL(ARMV7NEON, test x$armv7neon = xyes)
+
 # Checks for programs.
+AM_PROG_AS
 AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_INSTALL

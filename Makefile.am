@@ -5,6 +5,14 @@ ACLOCAL_AMFLAGS = -I m4
 
 AM_CFLAGS = -I$(top_srcdir)/aacenc/inc -I$(top_srcdir)/aacenc/basic_op -I$(top_srcdir)/common/include
 
+if ARMV7NEON
+    AM_CFLAGS += -DARMV5E -DARMV7Neon
+else
+if ARMV5E
+    AM_CFLAGS += -DARMV5E
+endif
+endif
+
 aacencincludedir = $(includedir)/vo-aacenc
 aacencinclude_HEADERS = $(top_srcdir)/$(VO_COMMON)/include/*.h
 
@@ -45,6 +53,26 @@ libvo_aacenc_la_SOURCES = \
     $(ENC_SRC)/stat_bits.c \
     $(ENC_SRC)/tns.c \
     $(ENC_SRC)/transform.c
+
+if ARMV7NEON
+    libvo_aacenc_la_SOURCES += \
+        $(ENC_SRC)/asm/ARMV5E/AutoCorrelation_v5.s \
+        $(ENC_SRC)/asm/ARMV5E/CalcWindowEnergy_v5.s \
+        $(ENC_SRC)/asm/ARMV5E/band_nrg_v5.s \
+        $(ENC_SRC)/asm/ARMV7/PrePostMDCT_v7.s \
+        $(ENC_SRC)/asm/ARMV7/R4R8First_v7.s \
+        $(ENC_SRC)/asm/ARMV7/Radix4FFT_v7.s
+else
+if ARMV5E
+    libvo_aacenc_la_SOURCES += \
+        $(ENC_SRC)/asm/ARMV5E/AutoCorrelation_v5.s \
+        $(ENC_SRC)/asm/ARMV5E/CalcWindowEnergy_v5.s \
+        $(ENC_SRC)/asm/ARMV5E/band_nrg_v5.s \
+        $(ENC_SRC)/asm/ARMV5E/PrePostMDCT_v5.s \
+        $(ENC_SRC)/asm/ARMV5E/R4R8First_v5.s \
+        $(ENC_SRC)/asm/ARMV5E/Radix4FFT_v5.s
+endif
+endif
 
 bin_PROGRAMS = aac-enc$(EXEEXT)
 
