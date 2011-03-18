@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
 		input.Length = read;
 		codec_api.SetInputData(handle, &input);
 
-		uint8_t outbuf[500];
+		uint8_t outbuf[20480];
 		output.Buffer = outbuf;
 		output.Length = sizeof(outbuf);
 		if (codec_api.GetOutputData(handle, &output, &output_info) != VO_ERR_NONE) {
