@@ -46,3 +46,10 @@ libvo_aacenc_la_SOURCES = \
     $(ENC_SRC)/tns.c \
     $(ENC_SRC)/transform.c
 
+bin_PROGRAMS = aac-enc$(EXEEXT)
+
+aac_enc_LDADD = libvo-aacenc.la
+aac_enc_SOURCES = aac-enc.cpp wavreader.cpp
+
+noinst_HEADERS = wavreader.h
+
