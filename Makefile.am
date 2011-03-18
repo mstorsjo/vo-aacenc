@@ -3,10 +3,10 @@ ENC_SRC = aacenc/src
 
 ACLOCAL_AMFLAGS = -I m4
 
-AM_CFLAGS = -Iaacenc/inc -Iaacenc/basic_op -Icommon/include
+AM_CFLAGS = -I$(top_srcdir)/aacenc/inc -I$(top_srcdir)/aacenc/basic_op -I$(top_srcdir)/common/include
 
 aacencincludedir = $(includedir)/vo-aacenc
-aacencinclude_HEADERS = $(VO_COMMON)/include/*.h
+aacencinclude_HEADERS = $(top_srcdir)/$(VO_COMMON)/include/*.h
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = vo-aacenc.pc
