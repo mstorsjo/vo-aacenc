@@ -81,3 +81,8 @@ aac_enc_SOURCES = aac-enc.cpp wavreader.cpp
 
 noinst_HEADERS = wavreader.h
 
+noinst_HEADERS += aacenc/inc/*.h aacenc/basic_op/*.h
+
+EXTRA_DIST = aacenc/*.cpp aacenc/*.mk aacenc/SampleCode aacenc/Tools \
+             aacenc/build aacenc/doc aacenc/*.txt common/*.mk
+
