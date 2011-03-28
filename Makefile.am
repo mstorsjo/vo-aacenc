@@ -77,7 +77,7 @@ endif
 bin_PROGRAMS = aac-enc$(EXEEXT)
 
 aac_enc_LDADD = libvo-aacenc.la
-aac_enc_SOURCES = aac-enc.cpp wavreader.c
+aac_enc_SOURCES = aac-enc.c wavreader.c
 
 noinst_HEADERS = wavreader.h
 
