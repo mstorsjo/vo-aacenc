@@ -74,14 +74,17 @@ if ARMV5E
 endif
 endif
 
+noinst_HEADERS = aacenc/inc/*.h aacenc/basic_op/*.h
+
+if EXAMPLE
 bin_PROGRAMS = aac-enc$(EXEEXT)
 
 aac_enc_LDADD = libvo-aacenc.la
 aac_enc_SOURCES = aac-enc.c wavreader.c
 
-noinst_HEADERS = wavreader.h
+noinst_HEADERS += wavreader.h
+endif
 
-noinst_HEADERS += aacenc/inc/*.h aacenc/basic_op/*.h
 
 EXTRA_DIST = aacenc/*.cpp aacenc/*.mk aacenc/SampleCode aacenc/Tools \
              aacenc/build aacenc/doc aacenc/*.txt common/*.mk

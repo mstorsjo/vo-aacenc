@@ -23,9 +23,15 @@ AC_ARG_ENABLE([armv7neon],
                [enable ARMV7 neon assembler (default is no)])],
             [armv7neon=$enableval], [armv7neon=no])
 
+AC_ARG_ENABLE([example],
+            [AS_HELP_STRING([--enable-example],
+                [enable example encoding program (default is no)])],
+            [example=$enableval], [example=no])
+
 # Automake conditionals to set
 AM_CONDITIONAL(ARMV5E, test x$armv5e = xyes)
 AM_CONDITIONAL(ARMV7NEON, test x$armv7neon = xyes)
+AM_CONDITIONAL(EXAMPLE, test x$example = xyes)
 
 # Checks for programs.
 AM_PROG_AS
