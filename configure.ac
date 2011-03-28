@@ -30,7 +30,6 @@ AM_CONDITIONAL(ARMV7NEON, test x$armv7neon = xyes)
 # Checks for programs.
 AM_PROG_AS
 AC_PROG_CC_C99
-AC_PROG_CXX
 
 # Setup for libtool
 AC_PROG_LIBTOOL
