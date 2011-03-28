@@ -49,9 +49,13 @@ int main(int argc, char *argv[]) {
 	const char* infile = argv[optind];
 	const char* outfile = argv[optind + 1];
 
-	WavReader wav(infile);
+	void* wav = wav_read_open(infile);
+	if (!wav) {
+		fprintf(stderr, "Unable to open wav file %s\n", infile);
+		return 1;
+	}
 	int format, sampleRate, channels, bitsPerSample;
-	if (!wav.getHeader(&format, &channels, &sampleRate, &bitsPerSample, NULL)) {
+	if (!wav_get_header(wav, &format, &channels, &sampleRate, &bitsPerSample, NULL)) {
 		fprintf(stderr, "Bad wav file %s\n", infile);
 		return 1;
 	}
@@ -102,7 +106,7 @@ int main(int argc, char *argv[]) {
 		VO_CODECBUFFER input = { 0 }, output = { 0 };
 		VO_AUDIO_OUTPUTINFO output_info = { 0 };
 
-		int read = wav.readData(inputBuf, inputSize);
+		int read = wav_read_data(wav, inputBuf, inputSize);
 		if (read < inputSize)
 			break;
 		for (int i = 0; i < read/2; i++) {
@@ -126,6 +130,7 @@ int main(int argc, char *argv[]) {
 	delete [] convertBuf;
 	fclose(out);
 	codec_api.Uninit(handle);
+	wav_read_close(wav);
 
 	return 0;
 }
