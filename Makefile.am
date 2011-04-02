@@ -74,7 +74,7 @@ if ARMV5E
 endif
 endif
 
-noinst_HEADERS = aacenc/inc/*.h aacenc/basic_op/*.h
+noinst_HEADERS = $(top_srcdir)/aacenc/inc/*.h $(top_srcdir)/aacenc/basic_op/*.h
 
 if EXAMPLE
 bin_PROGRAMS = aac-enc$(EXEEXT)
