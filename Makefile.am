@@ -6,7 +6,7 @@ ACLOCAL_AMFLAGS = -I m4
 AM_CFLAGS = -I$(top_srcdir)/aacenc/inc -I$(top_srcdir)/aacenc/basic_op -I$(top_srcdir)/common/include
 
 if ARMV7NEON
-    AM_CFLAGS += -DARMV5E -DARMV7Neon -DARM_INASM -DARMV5_INASM
+    AM_CFLAGS += -DARMV5E -DARMV7Neon -DARM_INASM -DARMV5_INASM -DARMV6_INASM
 else
 if ARMV5E
     AM_CFLAGS += -DARMV5E -DARM_INASM -DARMV5_INASM
