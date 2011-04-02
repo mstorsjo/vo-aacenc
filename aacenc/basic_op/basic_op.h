@@ -33,7 +33,7 @@
 #define ABS(a)	((a) >= 0) ? (a) : (-(a))
 
 /* Short abs,           1   */
-#define abs_s(x)       ((Word16)(((x) != MIN_16) ? (((x) >= 0) ? (x) : (-(x))) : MAX_16))
+#define abs_s(x)       (((x) != MIN_16) ? (((x) >= 0) ? (x) : (-(x))) : MAX_16)
 
 /* 16 bit var1 -> MSB,     2 */
 #define L_deposit_h(x) (((Word32)(x)) << 16)
@@ -48,7 +48,7 @@
 
 
 /* Short negate,        1   */
-#define negate(var1) ((Word16)(((var1) == MIN_16) ? MAX_16 : (-(var1))))
+#define negate(var1) (((var1) == MIN_16) ? MAX_16 : (-(var1)))
 
 
 /* Long negate,     2 */
@@ -60,34 +60,34 @@
 
 
 #if  (SATRUATE_IS_INLINE)
-__inline Word16 saturate(Word32 L_var1);
+__inline Word32 saturate(Word32 L_var1);
 #else
 Word16 saturate(Word32 L_var1);
 #endif
 
 /* Short shift left,    1   */
 #if (SHL_IS_INLINE)
-__inline Word16 shl (Word16 var1, Word16 var2);
+__inline Word32 shl (Word32 var1, Word32 var2);
 #else
 Word16 shl (Word16 var1, Word16 var2);
 #endif
 
 /* Short shift right,   1   */
 #if (SHR_IS_INLINE)
-__inline Word16 shr (Word16 var1, Word16 var2);
+__inline Word32 shr (Word32 var1, Word32 var2);
 #else
 Word16 shr (Word16 var1, Word16 var2);
 #endif
 
 #if (L_MULT_IS_INLINE)
-__inline Word32 L_mult(Word16 var1, Word16 var2);
+__inline Word32 L_mult(Word32 var1, Word32 var2);
 #else
 Word32 L_mult(Word16 var1, Word16 var2);
 #endif
 
 /* Msu,  1  */
 #if (L_MSU_IS_INLINE)
-__inline Word32 L_msu (Word32 L_var3, Word16 var1, Word16 var2);
+__inline Word32 L_msu (Word32 L_var3, Word32 var1, Word32 var2);
 #else
 Word32 L_msu (Word32 L_var3, Word16 var1, Word16 var2);
 #endif
@@ -101,70 +101,70 @@ Word32 L_sub(Word32 L_var1, Word32 L_var2);
 
 /* Long shift left, 2 */
 #if (L_SHL_IS_INLINE)
-__inline Word32 L_shl (Word32 L_var1, Word16 var2);
+__inline Word32 L_shl (Word32 L_var1, Word32 var2);
 #else
 Word32 L_shl (Word32 L_var1, Word16 var2);
 #endif
 
 /* Long shift right, 2*/
 #if (L_SHR_IS_INLINE)
-__inline Word32 L_shr (Word32 L_var1, Word16 var2);
+__inline Word32 L_shr (Word32 L_var1, Word32 var2);
 #else
 Word32 L_shr (Word32 L_var1, Word16 var2);
 #endif
 
 /* Short add,           1   */
 #if (ADD_IS_INLINE)
-__inline Word16 add (Word16 var1, Word16 var2);
+__inline Word32 add (Word32 var1, Word32 var2);
 #else
 Word16 add (Word16 var1, Word16 var2);
 #endif
 
 /* Short sub,           1   */
 #if (SUB_IS_INLINE)
-__inline Word16 sub(Word16 var1, Word16 var2);
+__inline Word32 sub(Word32 var1, Word32 var2);
 #else
 Word16 sub(Word16 var1, Word16 var2);
 #endif
 
 /* Short division,       18  */
 #if (DIV_S_IS_INLINE)
-__inline Word16 div_s (Word16 var1, Word16 var2);
+__inline Word32 div_s (Word32 var1, Word32 var2);
 #else
 Word16 div_s (Word16 var1, Word16 var2);
 #endif
 
 /* Short mult,          1   */
 #if (MULT_IS_INLINE)
-__inline Word16 mult (Word16 var1, Word16 var2);
+__inline Word32 mult (Word32 var1, Word32 var2);
 #else
 Word16 mult (Word16 var1, Word16 var2);
 #endif
 
 /* Short norm,           15  */
 #if (NORM_S_IS_INLINE)
-__inline Word16 norm_s (Word16 var1);
+__inline Word32 norm_s (Word32 var1);
 #else
 Word16 norm_s (Word16 var1);
 #endif
 
 /* Long norm,            30  */
 #if (NORM_L_IS_INLINE)
-__inline Word16 norm_l (Word32 L_var1);
+__inline Word32 norm_l (Word32 L_var1);
 #else
 Word16 norm_l (Word32 L_var1);
 #endif
 
 /* Round,               1   */
 #if (ROUND_IS_INLINE)
-__inline Word16 round16(Word32 L_var1);
+__inline Word32 round16(Word32 L_var1);
 #else
 Word16 round16(Word32 L_var1);
 #endif
 
 /* Mac,  1  */
 #if (L_MAC_IS_INLINE)
-__inline Word32 L_mac (Word32 L_var3, Word16 var1, Word16 var2);
+__inline Word32 L_mac (Word32 L_var3, Word32 var1, Word32 var2);
 #else
 Word32 L_mac (Word32 L_var3, Word16 var1, Word16 var2);
 #endif
@@ -177,60 +177,60 @@ Word32 L_add (Word32 L_var1, Word32 L_var2);
 
 /* Extract high,        1   */
 #if (EXTRACT_H_IS_INLINE)
-__inline Word16 extract_h (Word32 L_var1);
+__inline Word32 extract_h (Word32 L_var1);
 #else
 Word16 extract_h (Word32 L_var1);
 #endif
 
 /* Extract low,         1   */
 #if (EXTRACT_L_IS_INLINE)
-__inline Word16 extract_l(Word32 L_var1);
+__inline Word32 extract_l(Word32 L_var1);
 #else
 Word16 extract_l(Word32 L_var1);
 #endif
 
 /* Mult with round, 2 */
 #if (MULT_R_IS_INLINE)
-__inline Word16 mult_r(Word16 var1, Word16 var2);
+__inline Word32 mult_r(Word32 var1, Word32 var2);
 #else
 Word16 mult_r(Word16 var1, Word16 var2);
 #endif
 
 /* Shift right with round, 2           */
 #if (SHR_R_IS_INLINE)
-__inline Word16 shr_r (Word16 var1, Word16 var2);
+__inline Word32 shr_r (Word32 var1, Word32 var2);
 #else
 Word16 shr_r (Word16 var1, Word16 var2);
 #endif
 
 /* Mac with rounding,2 */
 #if (MAC_R_IS_INLINE)
-__inline Word16 mac_r (Word32 L_var3, Word16 var1, Word16 var2);
+__inline Word32 mac_r (Word32 L_var3, Word32 var1, Word32 var2);
 #else
 Word16 mac_r (Word32 L_var3, Word16 var1, Word16 var2);
 #endif
 
 /* Msu with rounding,2 */
 #if (MSU_R_IS_INLINE)
-__inline Word16 msu_r (Word32 L_var3, Word16 var1, Word16 var2);
+__inline Word32 msu_r (Word32 L_var3, Word32 var1, Word32 var2);
 #else
 Word16 msu_r (Word32 L_var3, Word16 var1, Word16 var2);
 #endif
 
 /* Long shift right with round,  3             */
 #if (L_SHR_R_IS_INLINE)
-__inline Word32 L_shr_r (Word32 L_var1, Word16 var2);
+__inline Word32 L_shr_r (Word32 L_var1, Word32 var2);
 #else
 Word32 L_shr_r (Word32 L_var1, Word16 var2);
 #endif
 
 #if ARMV4_INASM
-__inline Word32 ASM_L_shr(Word32 L_var1, Word16 var2)
+__inline Word32 ASM_L_shr(Word32 L_var1, Word32 var2)
 {
 	return L_var1 >> var2;
 }
 
-__inline Word32 ASM_L_shl(Word32 L_var1, Word16 var2)
+__inline Word32 ASM_L_shl(Word32 L_var1, Word32 var2)
 {
 	Word32 result;
 	asm (
@@ -243,7 +243,7 @@ __inline Word32 ASM_L_shl(Word32 L_var1, Word16 var2)
 	return result;
 }
 
-__inline Word32 ASM_shr(Word32 L_var1, Word16 var2)
+__inline Word32 ASM_shr(Word32 L_var1, Word32 var2)
 {
 	Word32 result;
 	asm (
@@ -256,7 +256,7 @@ __inline Word32 ASM_shr(Word32 L_var1, Word16 var2)
 	return result;
 }
 
-__inline Word32 ASM_shl(Word32 L_var1, Word16 var2)
+__inline Word32 ASM_shl(Word32 L_var1, Word32 var2)
 {
 #if ARMV6_SAT
 	Word32 result;
@@ -293,10 +293,10 @@ __inline Word32 ASM_shl(Word32 L_var1, Word16 var2)
  |___________________________________________________________________________|
 */
 #if (SATRUATE_IS_INLINE)
-__inline Word16 saturate(Word32 L_var1)
+__inline Word32 saturate(Word32 L_var1)
 {
 #if ARMV6_SAT
-    Word16 result;
+    Word32 result;
 	asm (
 		"SSAT %[result], #16, %[L_var1]"
 		: [result]"=r"(result)
@@ -304,7 +304,7 @@ __inline Word16 saturate(Word32 L_var1)
 		);
 	return result;
 #elif ARMV5TE_SAT
-	Word16 result;
+	Word32 result;
 	Word32 tmp;
 	asm volatile (
 		"MOV	%[tmp], %[L_var1],ASR#15\n"
@@ -317,7 +317,7 @@ __inline Word16 saturate(Word32 L_var1)
 
 	return result;
 #else
-    Word16 var_out;
+    Word32 var_out;
 
     //var_out = (L_var1 > (Word32)0X00007fffL) ? (MAX_16) : ((L_var1 < (Word32)0xffff8000L) ? (MIN_16) : ((Word16)L_var1));
 
@@ -341,7 +341,7 @@ __inline Word16 saturate(Word32 L_var1)
 
 /* Short shift left,    1   */
 #if (SHL_IS_INLINE)
-__inline Word16 shl (Word16 var1, Word16 var2)
+__inline Word32 shl (Word32 var1, Word32 var2)
 {
 #if ARMV5TE_SHL
 	if(var2>=0)
@@ -353,7 +353,7 @@ __inline Word16 shl (Word16 var1, Word16 var2)
 		return ASM_shr( var1, -var2);
 	}
 #else
-    Word16 var_out;
+    Word32 var_out;
     Word32 result;
 
     if (var2 < 0)
@@ -380,7 +380,7 @@ __inline Word16 shl (Word16 var1, Word16 var2)
 
 /* Short shift right,   1   */
 #if (SHR_IS_INLINE)
-__inline Word16 shr (Word16 var1, Word16 var2)
+__inline Word32 shr (Word32 var1, Word32 var2)
 {
 #if ARMV5TE_SHR
 	if(var2>=0)
@@ -392,7 +392,7 @@ __inline Word16 shr (Word16 var1, Word16 var2)
 		return  ASM_shl( var1, -var2);
 	}
 #else
-    Word16 var_out;
+    Word32 var_out;
 
     if (var2 < 0)
     {
@@ -424,7 +424,7 @@ __inline Word16 shr (Word16 var1, Word16 var2)
 
 
 #if (L_MULT_IS_INLINE)
-__inline Word32 L_mult(Word16 var1, Word16 var2)
+__inline Word32 L_mult(Word32 var1, Word32 var2)
 {
 #if ARMV5TE_L_MULT
 	Word32 result;
@@ -454,7 +454,7 @@ __inline Word32 L_mult(Word16 var1, Word16 var2)
 #endif
 
 #if (L_MSU_IS_INLINE)
-__inline Word32 L_msu (Word32 L_var3, Word16 var1, Word16 var2)
+__inline Word32 L_msu (Word32 L_var3, Word32 var1, Word32 var2)
 {
 #if ARMV5TE_L_MSU
 	Word32 result;
@@ -506,7 +506,7 @@ __inline Word32 L_sub(Word32 L_var1, Word32 L_var2)
 #endif
 
 #if (L_SHL_IS_INLINE)
-__inline Word32 L_shl(Word32 L_var1, Word16 var2)
+__inline Word32 L_shl(Word32 L_var1, Word32 var2)
 {
 #if ARMV5TE_L_SHL
     if(var2>=0)
@@ -549,7 +549,7 @@ __inline Word32 L_shl(Word32 L_var1, Word16 var2)
 #endif
 
 #if (L_SHR_IS_INLINE)
-__inline Word32 L_shr (Word32 L_var1, Word16 var2)
+__inline Word32 L_shr (Word32 L_var1, Word32 var2)
 {
 #if ARMV5TE_L_SHR
 	if(var2>=0)
@@ -592,7 +592,7 @@ __inline Word32 L_shr (Word32 L_var1, Word16 var2)
 
 /* Short add,           1   */
 #if (ADD_IS_INLINE)
-__inline Word16 add (Word16 var1, Word16 var2)
+__inline Word32 add (Word32 var1, Word32 var2)
 {
 #if ARMV5TE_ADD
 	Word32 result;
@@ -607,7 +607,7 @@ __inline Word16 add (Word16 var1, Word16 var2)
 		);
 	return result;
 #else
-    Word16 var_out;
+    Word32 var_out;
     Word32 L_sum;
 
     L_sum = (Word32) var1 + var2;
@@ -620,7 +620,7 @@ __inline Word16 add (Word16 var1, Word16 var2)
 
 /* Short sub,           1   */
 #if (SUB_IS_INLINE)
-__inline Word16 sub(Word16 var1, Word16 var2)
+__inline Word32 sub(Word32 var1, Word32 var2)
 {
 #if ARMV5TE_SUB
 	Word32 result;
@@ -635,7 +635,7 @@ __inline Word16 sub(Word16 var1, Word16 var2)
 		);
 	return result;
 #else
-    Word16 var_out;
+    Word32 var_out;
     Word32 L_diff;
 
     L_diff = (Word32) var1 - var2;
@@ -648,10 +648,10 @@ __inline Word16 sub(Word16 var1, Word16 var2)
 
 /* Short division,       18  */
 #if (DIV_S_IS_INLINE)
-__inline Word16 div_s (Word16 var1, Word16 var2)
+__inline Word32 div_s (Word32 var1, Word32 var2)
 {
-    Word16 var_out = 0;
-    Word16 iteration;
+    Word32 var_out = 0;
+    Word32 iteration;
     Word32 L_num;
     Word32 L_denom;
 
@@ -683,7 +683,7 @@ __inline Word16 div_s (Word16 var1, Word16 var2)
 
 /* Short mult,          1   */
 #if (MULT_IS_INLINE)
-__inline Word16 mult (Word16 var1, Word16 var2)
+__inline Word32 mult (Word32 var1, Word32 var2)
 {
 #if ARMV5TE_MULT && ARMV6_SAT
 	Word32 result;
@@ -707,7 +707,7 @@ __inline Word16 mult (Word16 var1, Word16 var2)
 		);
 	return result;
 #else
-    Word16 var_out;
+    Word32 var_out;
     Word32 L_product;
 
     L_product = (Word32) var1 *(Word32) var2;
@@ -724,10 +724,10 @@ __inline Word16 mult (Word16 var1, Word16 var2)
 
 /* Short norm,           15  */
 #if (NORM_S_IS_INLINE)
-__inline Word16 norm_s (Word16 var1)
+__inline Word32 norm_s (Word32 var1)
 {
 #if ARMV5TE_NORM_S
-	Word16 result;
+	Word32 result;
 	Word32 tmp;
 	asm (
 		"RSBS  %[tmp], %[var1], #0 \n"
@@ -742,7 +742,7 @@ __inline Word16 norm_s (Word16 var1)
 		);
 	return result;
 #else
-    Word16 var_out;
+    Word32 var_out;
 
     if (var1 == 0)
     {
@@ -773,10 +773,10 @@ __inline Word16 norm_s (Word16 var1)
 
 /* Long norm,            30  */
 #if (NORM_L_IS_INLINE)
-__inline Word16 norm_l (Word32 L_var1)
+__inline Word32 norm_l (Word32 L_var1)
 {
 #if ARMV5TE_NORM_L
-	Word16 result;
+	Word32 result;
 	asm volatile(
 		"CMP    %[L_var1], #0\n"
 		"CLZNE  %[result], %[L_var1]\n"
@@ -983,10 +983,10 @@ __inline Word16 norm_l (Word32 L_var1)
 
 /* Round,               1   */
 #if (ROUND_IS_INLINE)
-__inline Word16 round16(Word32 L_var1)
+__inline Word32 round16(Word32 L_var1)
 {
 #if ARMV5TE_ROUND
-	Word16 result;
+	Word32 result;
 	asm (
 		"QADD  %[result], %[L_var1], %[bias]\n"
 		"MOV   %[result], %[result], ASR #16 \n"
@@ -995,7 +995,7 @@ __inline Word16 round16(Word32 L_var1)
 		);
 	return result;
 #else
-    Word16 var_out;
+    Word32 var_out;
     Word32 L_rounded;
 
     L_rounded = L_add (L_var1, (Word32) 0x00008000L);
@@ -1007,7 +1007,7 @@ __inline Word16 round16(Word32 L_var1)
 
 /* Mac,  1  */
 #if (L_MAC_IS_INLINE)
-__inline Word32 L_mac (Word32 L_var3, Word16 var1, Word16 var2)
+__inline Word32 L_mac (Word32 L_var3, Word32 var1, Word32 var2)
 {
 #if ARMV5TE_L_MAC
 	Word32 result;
@@ -1059,9 +1059,9 @@ __inline Word32 L_add (Word32 L_var1, Word32 L_var2)
 
 
 #if (MULT_R_IS_INLINE)
-__inline Word16 mult_r (Word16 var1, Word16 var2)
+__inline Word32 mult_r (Word32 var1, Word32 var2)
 {
-    Word16 var_out;
+    Word32 var_out;
     Word32 L_product_arr;
 
     L_product_arr = (Word32)var1 *(Word32)var2;       /* product */
@@ -1075,9 +1075,9 @@ __inline Word16 mult_r (Word16 var1, Word16 var2)
 #endif
 
 #if (SHR_R_IS_INLINE)
-__inline Word16 shr_r (Word16 var1, Word16 var2)
+__inline Word32 shr_r (Word32 var1, Word32 var2)
 {
-    Word16 var_out;
+    Word32 var_out;
 
     if (var2 > 15)
     {
@@ -1101,9 +1101,9 @@ __inline Word16 shr_r (Word16 var1, Word16 var2)
 #endif
 
 #if (MAC_R_IS_INLINE)
-__inline Word16 mac_r (Word32 L_var3, Word16 var1, Word16 var2)
+__inline Word32 mac_r (Word32 L_var3, Word32 var1, Word32 var2)
 {
-    Word16 var_out;
+    Word32 var_out;
 
     L_var3 = L_mac (L_var3, var1, var2);
     var_out = (Word16)((L_var3 + 0x8000L) >> 16);
@@ -1113,9 +1113,9 @@ __inline Word16 mac_r (Word32 L_var3, Word16 var1, Word16 var2)
 #endif
 
 #if (MSU_R_IS_INLINE)
-__inline Word16 msu_r (Word32 L_var3, Word16 var1, Word16 var2)
+__inline Word32 msu_r (Word32 L_var3, Word32 var1, Word32 var2)
 {
-    Word16 var_out;
+    Word32 var_out;
 
     L_var3 = L_msu (L_var3, var1, var2);
     var_out = (Word16)((L_var3 + 0x8000L) >> 16);
@@ -1125,7 +1125,7 @@ __inline Word16 msu_r (Word32 L_var3, Word16 var1, Word16 var2)
 #endif
 
 #if (L_SHR_R_IS_INLINE)
-__inline Word32 L_shr_r (Word32 L_var1, Word16 var2)
+__inline Word32 L_shr_r (Word32 L_var1, Word32 var2)
 {
     Word32 L_var_out;
 
@@ -1151,18 +1151,18 @@ __inline Word32 L_shr_r (Word32 L_var1, Word16 var2)
 #endif
 
 #if (EXTRACT_H_IS_INLINE)
-__inline Word16 extract_h (Word32 L_var1)
+__inline Word32 extract_h (Word32 L_var1)
 {
-    Word16 var_out;
+    Word32 var_out;
 
-    var_out = (Word16) (L_var1 >> 16);
+    var_out = (L_var1 >> 16);
 
     return (var_out);
 }
 #endif
 
 #if (EXTRACT_L_IS_INLINE)
-__inline Word16 extract_l(Word32 L_var1)
+__inline Word32 extract_l(Word32 L_var1)
 {
 	return (Word16) L_var1;
 }
