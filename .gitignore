@@ -3,7 +3,7 @@
 *.la
 *.pc
 Makefile
-amrwb-enc
+aac-enc
 Makefile.in
 aclocal.m4
 autom4te.cache
