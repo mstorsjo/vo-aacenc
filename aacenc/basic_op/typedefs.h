@@ -48,7 +48,9 @@
 #define assert(_Expression)     ((void)0)
 #endif
 
+#ifndef _MSC_VER
 #define __inline static __inline__
+#endif
 
 #define INT_BITS   32
 /*
