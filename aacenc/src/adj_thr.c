@@ -20,7 +20,6 @@
 
 *******************************************************************************/
 
-#include <string.h>
 #include "basic_op.h"
 #include "oper_32b.h"
 #include "adj_thr_data.h"
@@ -1130,7 +1129,7 @@ void AdjustThresholds(ADJ_THR_STATE   *adjThrState,
 					  const Word16     nChannels,
                       const Word16     maxBitFac)
 {
-  PE_DATA peData;
+  PE_DATA peData = { 0 };
   Word16 noRedPe, grantedPe, grantedPeCorr;
   Word16 curWindowSequence;
   Word16 bitFactor;
@@ -1139,7 +1138,6 @@ void AdjustThresholds(ADJ_THR_STATE   *adjThrState,
   Word16 maxBitresBits = elBits->maxBits;
   Word16 sideInfoBits = (qcOE->staticBitsUsed + qcOE->ancBitsUsed);
   Word16 ch;
-  memset(&peData, 0, sizeof(peData));
 
   prepareSfbPe(&peData, psyOutChannel, logSfbEnergy, sfbNRelevantLines, nChannels, AdjThrStateElement->peOffset);
 
