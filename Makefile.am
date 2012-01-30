@@ -88,7 +88,6 @@ endif
 
 EXTRA_DIST = $(top_srcdir)/NOTICE \
              $(top_srcdir)/aacenc/*.cpp $(top_srcdir)/aacenc/*.mk \
-             $(top_srcdir)/aacenc/SampleCode $(top_srcdir)/aacenc/Tools \
-             $(top_srcdir)/aacenc/build $(top_srcdir)/aacenc/doc \
+             $(top_srcdir)/aacenc/SampleCode $(top_srcdir)/aacenc/doc \
              $(top_srcdir)/aacenc/*.txt $(top_srcdir)/common/*.mk
 
