@@ -20,13 +20,13 @@
 
 *******************************************************************************/
 
+#include <string.h>
 #include "basic_op.h"
 #include "oper_32b.h"
 #include "adj_thr_data.h"
 #include "adj_thr.h"
 #include "qc_data.h"
 #include "line_pe.h"
-#include <string.h>
 
 
 #define  minSnrLimit    0x6666 /* 1 dB */
