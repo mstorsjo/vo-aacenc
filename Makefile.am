@@ -88,7 +88,12 @@ endif
 
 EXTRA_DIST = $(top_srcdir)/NOTICE \
              $(top_srcdir)/vo-aacenc.sym \
-             $(top_srcdir)/aacenc/*.cpp $(top_srcdir)/aacenc/*.mk \
+             $(top_srcdir)/aacenc/NOTICE \
+             $(top_srcdir)/aacenc/MODULE_LICENSE_APACHE2 \
+             $(top_srcdir)/aacenc/*.cpp $(top_srcdir)/aacenc/*.h \
+             $(top_srcdir)/aacenc/*.mk \
              $(top_srcdir)/aacenc/SampleCode $(top_srcdir)/aacenc/doc \
-             $(top_srcdir)/aacenc/*.txt $(top_srcdir)/common/*.mk
+             $(top_srcdir)/aacenc/*.txt $(top_srcdir)/common/*.mk \
+             $(top_srcdir)/common/NOTICE \
+             $(top_srcdir)/common/MODULE_LICENSE_APACHE2
 
