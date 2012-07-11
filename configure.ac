@@ -33,8 +33,7 @@ AM_PROG_AS
 AC_PROG_CC_C99
 
 dnl Setup for libtool
-AC_PROG_LIBTOOL
-AC_SUBST(LIBTOOL_DEPS)
+LT_INIT
 
 dnl soname version to use
 dnl goes by ‘current[:revision[:age]]’ with the soname ending up as
