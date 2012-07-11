@@ -7,11 +7,9 @@ aac-enc
 Makefile.in
 aclocal.m4
 autom4te.cache
-config.h.in
 configure
 .deps
 .libs
-config.h
 config.log
 config.status
 libtool
