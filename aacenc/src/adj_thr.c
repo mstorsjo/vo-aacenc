@@ -666,6 +666,8 @@ static void allowMoreHoles(PSY_OUT_CHANNEL  psyOutChannel[MAX_CHANNELS],
       shift = norm_l(ahCnt);
 	  iahCnt = Div_32( 1 << shift, ahCnt << shift );
       avgEn = fixmul(avgEn, iahCnt);
+      if (avgEn < minEn)
+          avgEn = minEn;
     }
 
     enDiff = iLog4(avgEn) - iLog4(minEn);
