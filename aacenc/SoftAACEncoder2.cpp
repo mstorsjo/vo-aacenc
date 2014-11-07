@@ -19,6 +19,7 @@
 #include <utils/Log.h>
 
 #include "SoftAACEncoder2.h"
+#include <OMX_AudioExt.h>
 
 #include <media/stagefright/foundation/ADebug.h>
 #include <media/stagefright/foundation/hexdump.h>
@@ -44,6 +45,8 @@ SoftAACEncoder2::SoftAACEncoder2(
       mNumChannels(1),
       mSampleRate(44100),
       mBitRate(0),
+      mSBRMode(-1),
+      mSBRRatio(0),
       mAACProfile(OMX_AUDIO_AACObjectLC),
       mSentCodecSpecificData(false),
       mInputSize(0),
@@ -156,6 +159,41 @@ OMX_ERRORTYPE SoftAACEncoder2::internalGetParameter(
             aacParams->nSampleRate = mSampleRate;
             aacParams->nFrameLength = 0;
 
+            switch (mSBRMode) {
+            case 1: // sbr on
+                switch (mSBRRatio) {
+                case 0:
+                    // set both OMX AAC tool flags
+                    aacParams->nAACtools |= OMX_AUDIO_AACToolAndroidSSBR;
+                    aacParams->nAACtools |= OMX_AUDIO_AACToolAndroidDSBR;
+                    break;
+                case 1:
+                    // set single-rate SBR active
+                    aacParams->nAACtools |= OMX_AUDIO_AACToolAndroidSSBR;
+                    aacParams->nAACtools &= ~OMX_AUDIO_AACToolAndroidDSBR;
+                    break;
+                case 2:
+                    // set dual-rate SBR active
+                    aacParams->nAACtools &= ~OMX_AUDIO_AACToolAndroidSSBR;
+                    aacParams->nAACtools |= OMX_AUDIO_AACToolAndroidDSBR;
+                    break;
+                default:
+                    ALOGE("invalid SBR ratio %d", mSBRRatio);
+                    TRESPASS();
+                }
+                break;
+            case 0:  // sbr off
+            case -1: // sbr undefined
+                aacParams->nAACtools &= ~OMX_AUDIO_AACToolAndroidSSBR;
+                aacParams->nAACtools &= ~OMX_AUDIO_AACToolAndroidDSBR;
+                break;
+            default:
+                ALOGE("invalid SBR mode %d", mSBRMode);
+                TRESPASS();
+            }
+
+
+
             return OMX_ErrorNone;
         }
 
@@ -243,6 +281,23 @@ OMX_ERRORTYPE SoftAACEncoder2::internalSetParameter(
                 mAACProfile = aacParams->eAACProfile;
             }
 
+            if (!(aacParams->nAACtools & OMX_AUDIO_AACToolAndroidSSBR)
+                    && !(aacParams->nAACtools & OMX_AUDIO_AACToolAndroidDSBR)) {
+                mSBRMode = 0;
+                mSBRRatio = 0;
+            } else if ((aacParams->nAACtools & OMX_AUDIO_AACToolAndroidSSBR)
+                    && !(aacParams->nAACtools & OMX_AUDIO_AACToolAndroidDSBR)) {
+                mSBRMode = 1;
+                mSBRRatio = 1;
+            } else if (!(aacParams->nAACtools & OMX_AUDIO_AACToolAndroidSSBR)
+                    && (aacParams->nAACtools & OMX_AUDIO_AACToolAndroidDSBR)) {
+                mSBRMode = 1;
+                mSBRRatio = 2;
+            } else {
+                mSBRMode = -1; // codec default sbr mode
+                mSBRRatio = 0;
+            }
+
             if (setAudioParams() != OK) {
                 return OMX_ErrorUndefined;
             }
@@ -292,6 +347,10 @@ static AUDIO_OBJECT_TYPE getAOTFromProfile(OMX_U32 profile) {
         return AOT_AAC_LC;
     } else if (profile == OMX_AUDIO_AACObjectHE) {
         return AOT_SBR;
+    } else if (profile == OMX_AUDIO_AACObjectHE_PS) {
+        return AOT_PS;
+    } else if (profile == OMX_AUDIO_AACObjectLD) {
+        return AOT_ER_AAC_LD;
     } else if (profile == OMX_AUDIO_AACObjectELD) {
         return AOT_ER_AAC_ELD;
     } else {
@@ -301,11 +360,11 @@ static AUDIO_OBJECT_TYPE getAOTFromProfile(OMX_U32 profile) {
 }
 
 status_t SoftAACEncoder2::setAudioParams() {
-    // We call this whenever sample rate, number of channels or bitrate change
+    // We call this whenever sample rate, number of channels, bitrate or SBR mode change
     // in reponse to setParameter calls.
 
-    ALOGV("setAudioParams: %lu Hz, %lu channels, %lu bps",
-         mSampleRate, mNumChannels, mBitRate);
+    ALOGV("setAudioParams: %u Hz, %u channels, %u bps, %i sbr mode, %i sbr ratio",
+         mSampleRate, mNumChannels, mBitRate, mSBRMode, mSBRRatio);
 
     if (AACENC_OK != aacEncoder_SetParam(mAACEncoder, AACENC_AOT,
             getAOTFromProfile(mAACProfile))) {
@@ -327,6 +386,24 @@ status_t SoftAACEncoder2::setAudioParams() {
         return UNKNOWN_ERROR;
     }
     if (AACENC_OK != aacEncoder_SetParam(mAACEncoder, AACENC_TRANSMUX, TT_MP4_RAW)) {
+        ALOGE("Failed to set AAC encoder parameters");
+        return UNKNOWN_ERROR;
+    }
+
+    if (mSBRMode != -1 && mAACProfile == OMX_AUDIO_AACObjectELD) {
+        if (AACENC_OK != aacEncoder_SetParam(mAACEncoder, AACENC_SBR_MODE, mSBRMode)) {
+            ALOGE("Failed to set AAC encoder parameters");
+            return UNKNOWN_ERROR;
+        }
+    }
+
+    /* SBR ratio parameter configurations:
+       0: Default configuration wherein SBR ratio is configured depending on audio object type by
+          the FDK.
+       1: Downsampled SBR (default for ELD)
+       2: Dualrate SBR (default for HE-AAC)
+     */
+    if (AACENC_OK != aacEncoder_SetParam(mAACEncoder, AACENC_SBR_RATIO, mSBRRatio)) {
         ALOGE("Failed to set AAC encoder parameters");
         return UNKNOWN_ERROR;
     }
@@ -360,7 +437,7 @@ void SoftAACEncoder2::onQueueFilled(OMX_U32 /* portIndex */) {
 
         OMX_U32 actualBitRate  = aacEncoder_GetParam(mAACEncoder, AACENC_BITRATE);
         if (mBitRate != actualBitRate) {
-            ALOGW("Requested bitrate %lu unsupported, using %lu", mBitRate, actualBitRate);
+            ALOGW("Requested bitrate %u unsupported, using %u", mBitRate, actualBitRate);
         }
 
         AACENC_InfoStruct encInfo;
