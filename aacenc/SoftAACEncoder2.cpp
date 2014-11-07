@@ -334,7 +334,7 @@ status_t SoftAACEncoder2::setAudioParams() {
     return OK;
 }
 
-void SoftAACEncoder2::onQueueFilled(OMX_U32 portIndex) {
+void SoftAACEncoder2::onQueueFilled(OMX_U32 /* portIndex */) {
     if (mSignalledError) {
         return;
     }
