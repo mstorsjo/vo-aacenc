@@ -3,7 +3,7 @@ ENC_SRC = aacenc/src
 
 ACLOCAL_AMFLAGS = -I m4
 
-AM_CFLAGS = -I$(top_srcdir)/aacenc/inc -I$(top_srcdir)/aacenc/basic_op -I$(top_srcdir)/common/include
+AM_CFLAGS = -I$(top_srcdir)/aacenc/inc -I$(top_srcdir)/aacenc/basic_op -I$(top_srcdir)/common/include -D__unused=
 
 if ARMV7NEON
     AM_CFLAGS += -DARMV5E -DARMV7Neon -DARM_INASM -DARMV5_INASM -DARMV6_INASM
