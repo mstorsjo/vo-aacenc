@@ -239,6 +239,7 @@ __inline Word32 ASM_L_shl(Word32 L_var1, Word32 var2)
 		"EORNE  %[result], %[mask], %[L_var1], ASR #31\n"
 		:[result]"=&r"(result)
 		:[L_var1]"r"(L_var1), [var2]"r"(var2), [mask]"r"(0x7fffffff)
+		:"cc"
 		);
 	return result;
 }
@@ -252,6 +253,7 @@ __inline Word32 ASM_shr(Word32 L_var1, Word32 var2)
 		"MOVGE	%[result], %[L_var1], ASR #15\n"
 		:[result]"=r"(result)
 		:[L_var1]"r"(L_var1), [var2]"r"(var2)
+		:"cc"
 		);
 	return result;
 }
@@ -267,6 +269,7 @@ __inline Word32 ASM_shl(Word32 L_var1, Word32 var2)
 		"SSAT   %[result], #16, %[result]\n"
 		:[result]"=r"(result)
 		:[L_var1]"r"(L_var1), [var2]"r"(var2)
+		:"cc"
 		);
 	return result;
 #else
@@ -281,6 +284,7 @@ __inline Word32 ASM_shl(Word32 L_var1, Word32 var2)
         "EORNE  %[result], %[mask], %[result],ASR #31"
 		:[result]"=&r"(result), [tmp]"=&r"(tmp)
 		:[L_var1]"r"(L_var1), [var2]"r"(var2), [mask]"r"(0x7fff)
+		:"cc"
 		);
 	return result;
 #endif
@@ -313,6 +317,7 @@ __inline Word32 saturate(Word32 L_var1)
 		"MOVEQ	%[result], %[L_var1]\n"
 		:[result]"=&r"(result), [tmp]"=&r"(tmp)
 		:[L_var1]"r"(L_var1), [mask]"r"(0x7fff)
+		:"cc"
 	);
 
 	return result;
@@ -601,6 +606,7 @@ __inline Word32 add (Word32 var1, Word32 var2)
 		"EORNE %[result], %[mask], %[result], ASR #31"
 		:[result]"=&r"(result), [tmp]"=&r"(tmp)
 		:[var1]"r"(var1), [var2]"r"(var2), [mask]"r"(0x7fff)
+		:"cc"
 		);
 	return result;
 #else
@@ -629,6 +635,7 @@ __inline Word32 sub(Word32 var1, Word32 var2)
 		"EORNE %[result], %[mask], %[result], ASR #31 \n"
 		:[result]"=&r"(result), [tmp]"=&r"(tmp)
 		:[var1]"r"(var1), [var2]"r"(var2), [mask]"r"(0x7fff)
+		:"cc"
 		);
 	return result;
 #else
@@ -701,6 +708,7 @@ __inline Word32 mult (Word32 var1, Word32 var2)
 		"EORNE  %[result], %[mask], %[result], ASR #31 \n"
 		:[result]"=&r"(result), [tmp]"=&r"(tmp)
 		:[var1]"r"(var1), [var2]"r"(var2), [mask]"r"(0x7fff)
+		:"cc"
 		);
 	return result;
 #else
@@ -736,6 +744,7 @@ __inline Word32 norm_s (Word32 var1)
 		"MOVEQ %[result], #15\n"
 		:[result]"=&r"(result), [tmp]"=&r"(tmp)
 		:[var1]"r"(var1)
+		:"cc"
 		);
 	return result;
 #else
@@ -781,6 +790,7 @@ __inline Word32 norm_l (Word32 L_var1)
 		"MOVEQ  %[result], #0\n"
 		:[result]"=r"(result)
 		:[L_var1]"r"(L_var1)
+		:"cc"
 		);
 	return result;
 #else
